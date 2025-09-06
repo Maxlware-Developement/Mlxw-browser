@@ -11,7 +11,10 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "build": "electron-builder"
+    "build": "electron-builder",
+    "dist:win": "electron-builder --win",
+    "dist:linux": "electron-builder --linux",
+    "dist:mac": "electron-builder --mac"
   },
   "keywords": [
     "navigateur",
@@ -33,12 +36,15 @@
     "url": "https://github.com/Maxlware-Developement/Mlxw-browser/issues"
   },
   "homepage": "https://github.com/Maxlware-Developement/Mlxw-browser#readme",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "devDependencies": {
     "electron": "^29.3.0",
     "electron-builder": "^26.0.12"
   },
-  "engines": {
-    "node": ">=18.0.0"
+  "dependencies": {
+    "discord-rpc": "^4.0.1"
   },
   "build": {
     "appId": "com.maxlware.browser",
@@ -47,9 +53,12 @@
     "files": [
       "main.js",
       "preload.js",
+      "rpc.js",
       "settings.json",
-      "renderer/**/*"
+      "renderer/**/*",
+      "assets/**/*"
     ],
+    "extraResources": [],
     "directories": {
       "output": "dist"
     },
@@ -64,6 +73,11 @@
     "linux": {
       "target": "AppImage",
       "icon": "assets"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true
     }
   }
 }
