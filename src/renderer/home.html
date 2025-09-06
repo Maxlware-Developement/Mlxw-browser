@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Accueil - Mxlw</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #f5f5f5, #dbe9f4);
+      flex-direction: column;
+    }
+    h1 {
+      font-weight: 600;
+      margin-bottom: 30px;
+    }
+    input {
+      width: 400px;
+      padding: 15px;
+      font-size: 16px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+  </style>
+</head>
+<body>
+  <h1>Bienvenue sur Mxlw</h1>
+  <input id="search" placeholder="Tapez une recherche ou une URL..." />
+  <script>
+    const input = document.getElementById('search');
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const value = input.value.trim();
+        if (value.includes('.') || value.startsWith('http')) {
+          location.href = `https://${value.replace(/^https?:\/\//, '')}`;
+        } else {
+          location.href = `https://www.google.com/search?q=${encodeURIComponent(value)}`;
+        }
+      }
+    });
+  </script>
+</body>
+</html>

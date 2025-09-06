@@ -1,0 +1,65 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: #f7f7f7;
+  -webkit-user-select: none;
+}
+
+.titlebar {
+  height: 30px;
+  background: #ffffffcc;
+  backdrop-filter: blur(8px);
+  -webkit-app-region: drag;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.window-buttons button {
+  margin-left: 5px;
+  background: transparent;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  -webkit-app-region: no-drag;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background: white;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  gap: 10px;
+}
+
+input {
+  flex: 1;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+button {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background: white;
+  cursor: pointer;
+}
+
+.tabs {
+  display: flex;
+  gap: 5px;
+}
+
+.tab {
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: #eee;
+  cursor: pointer;
+}
+.tab:hover {
+  background: #ddd;
+}
