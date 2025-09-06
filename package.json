@@ -1,0 +1,69 @@
+{
+  "name": "mxlw-browser",
+  "version": "1.0.0",
+  "description": "Navigateur web minimaliste et extensible développé avec Electron et Node.js",
+  "author": {
+    "name": "Maxlware",
+    "email": "contact@maxlware.fr",
+    "url": "https://maxlware.fr"
+  },
+  "license": "MPL-2.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "keywords": [
+    "navigateur",
+    "electron",
+    "minimal",
+    "browser",
+    "nodejs",
+    "custom-browser",
+    "maxlware",
+    "frugiser",
+    "aero",
+    "bento"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Maxlware-Developement/Mlxw-browser"
+  },
+  "bugs": {
+    "url": "https://github.com/Maxlware-Developement/Mlxw-browser/issues"
+  },
+  "homepage": "https://github.com/Maxlware-Developement/Mlxw-browser#readme",
+  "devDependencies": {
+    "electron": "^29.3.0",
+    "electron-builder": "^26.0.12"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "build": {
+    "appId": "com.maxlware.browser",
+    "productName": "Mxlw Browser",
+    "copyright": "© 2025 Maxlware",
+    "files": [
+      "main.js",
+      "preload.js",
+      "settings.json",
+      "renderer/**/*"
+    ],
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "assets/icon.ico"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "assets/icon.icns"
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": "assets"
+    }
+  }
+}
