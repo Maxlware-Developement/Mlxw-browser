@@ -2,6 +2,8 @@ const { app, BrowserWindow, BrowserView, ipcMain } = require('electron');
 const path = require('path');
 const fs = require('fs');
 
+require('./rpc.js');
+
 let mainWindow;
 let tabs = [];
 let settings = {
@@ -129,9 +131,11 @@ function isValidUrl(str) {
 }
 
 app.whenReady().then(createWindow);
+
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit();
 });
+
 app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) createWindow();
 });
