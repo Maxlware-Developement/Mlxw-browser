@@ -2,6 +2,8 @@ const { app, BrowserWindow, BrowserView, ipcMain } = require('electron');
 const path = require('path');
 const fs = require('fs');
 
+const { setupContextMenu, setupCreditsShortcut } = require('./context-menu');
+
 require('./rpc.js');
 
 let mainWindow;
@@ -39,6 +41,8 @@ function createWindow() {
 
   mainWindow.loadFile('renderer/index.html');
 
+  setupCreditsShortcut(mainWindow);
+
   createTab(settings.homePage);
 
   mainWindow.on('resize', () => {
@@ -58,6 +62,7 @@ function createTab(url) {
   });
 
   view.webContents.loadURL(url);
+  setupContextMenu(mainWindow, view);
   view.webContents.setWindowOpenHandler(() => ({ action: 'deny' }));
 
   mainWindow.setBrowserView(view);
