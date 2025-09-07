@@ -28,3 +28,9 @@ window.electronAPI.onTabsUpdated((tabs) => {
     tabBar.appendChild(el);
   });
 });
+
+const { ipcRenderer } = require('electron');
+
+ipcRenderer.on('open-source-view', () => {
+  window.location.href = 'view-source.html';
+});
