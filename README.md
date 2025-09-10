@@ -14,6 +14,19 @@
 - Redimensionnement fluide des iframes
 - Empêche l'ouverture d'une nouvelle fenêtre sur les liens
 
+## Prérequis
+### Minimal
+Processeur : Intel Core i5 1.60GHz
+Mémoire (RAM) : 4,0 Go
+Stockage conseillé : 500 Mo
+Stockage du logiciel : 250 Mo
+
+### Conseillé
+Processeur : Intel Core i5 1.60GHz
+Mémoire (RAM) : 8,0 Go
+Stockage conseillé : 500 Mo
+Stockage du logiciel : 250 Mo
+
 ## Licence
 
 Ce projet est sous licence Mozilla Public License 2.0 (MPL-2.0).
