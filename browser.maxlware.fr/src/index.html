@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Télécharger Mxlw Browser</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #ffffff 0%, #0091ff 100%);
+      flex-direction: column;
+      position: relative;
+      overflow-x: hidden;
+    }
+    
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      backdrop-filter: blur(10px);
+      z-index: -1;
+    }
+    
+    .download-container {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      text-align: center;
+      max-width: 800px;
+      width: 90%;
+      margin: 20px;
+    }
+    
+    h1 {
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #2c3e50;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+      font-size: 2.5rem;
+    }
+    
+    .subtitle {
+      font-size: 1.2rem;
+      color: #34495e;
+      margin-bottom: 30px;
+    }
+    
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin: 30px 0;
+    }
+    
+    .feature {
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(5px);
+      border-radius: 15px;
+      padding: 20px;
+      width: 200px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      transition: transform 0.3s ease;
+    }
+    
+    .feature:hover {
+      transform: translateY(-5px);
+    }
+    
+    .feature-icon {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+    }
+    
+    .feature-title {
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #2c3e50;
+    }
+    
+    .download-options {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin: 40px 0;
+    }
+    
+    .download-btn {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      border-radius: 12px;
+      padding: 15px 25px;
+      width: 180px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .download-btn:hover {
+      background: rgba(255, 255, 255, 0.9);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+    
+    .platform-name {
+      font-weight: 600;
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+      color: #2c3e50;
+    }
+    
+    .platform-icon {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+    
+    .version-info {
+      font-size: 0.8em;
+      color: #7f8c8d;
+      background: rgba(255, 255, 255, 0.5);
+      padding: 5px 10px;
+      border-radius: 8px;
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      margin-top: 30px;
+    }
+    
+    .news-panel {
+      position: fixed;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 300px;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 12px;
+      padding: 15px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      max-height: 60vh;
+      overflow-y: auto;
+    }
+    
+    .news-panel h2 {
+      margin-top: 0;
+      font-size: 1.2em;
+      color: #2c3e50;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      padding-bottom: 8px;
+    }
+    
+    .news-item {
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    
+    .news-item:last-child {
+      border-bottom: none;
+    }
+    
+    .news-title {
+      font-weight: 600;
+      margin-bottom: 5px;
+      color: #3498db;
+    }
+    
+    .news-content {
+      font-size: 0.9em;
+      color: #34495e;
+    }
+
+    .dropdown {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 100;
+    }
+    
+    .dropdown-btn {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.3s ease;
+    }
+    
+    .dropdown-btn:hover {
+      background: rgba(255, 255, 255, 0.9);
+      transform: translateY(-2px);
+    }
+    
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      bottom: 60px;
+      right: 0;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      min-width: 160px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      overflow: hidden;
+      z-index: 1;
+    }
+    
+    .dropdown-content a {
+      color: #2c3e50;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      transition: background 0.2s ease;
+    }
+    
+    .dropdown-content a:hover {
+      background: rgba(52, 152, 219, 0.1);
+    }
+    
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+    
+    .back-btn {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: #2c3e50;
+      font-size: 1.2rem;
+    }
+    
+    .back-btn:hover {
+      background: rgba(255, 255, 255, 0.9);
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+  <a href="https://maxlware.fr" class="back-btn">←</a>
+  
+  <div class="download-container">
+    <h1>Télécharger Mxlw Browser</h1>
+    <p class="subtitle">Découvrez une nouvelle expérience de navigation avec notre navigateur rapide et sécurisé</p>
+    
+    <div class="features">
+      <div class="feature">
+        <div class="feature-icon">⚡</div>
+        <div class="feature-title">Rapidité</div>
+        <p>Chargement ultra-rapide des pages</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🔒</div>
+        <div class="feature-title">Sécurité</div>
+        <p>Protection avancée contre les menaces</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🎨</div>
+        <div class="feature-title">Élégance</div>
+        <p>Interface moderne et épurée</p>
+      </div>
+    </div>
+    
+    <div class="download-options">
+      <div class="download-btn">
+        <div class="platform-icon">💻</div>
+        <div class="platform-name">Windows</div>
+        <p>64-bit • Installateur</p>
+      </div>
+      <div class="download-btn">
+        <div class="platform-icon">🍎</div>
+        <div class="platform-name">macOS</div>
+        <p>Apple Silicon • Intel</p>
+      </div>
+      <div class="download-btn">
+        <div class="platform-icon">🐧</div>
+        <div class="platform-name">Linux</div>
+        <p>Debian • Ubuntu • Fedora</p>
+      </div>
+    </div>
+    
+    <div class="version-info">Version 1.0.3 beta-preview (build 103bp)</div>
+  </div>
+  
+  <div class="news-panel">
+    <h2>Actualités</h2>
+    <div class="news-item">
+      <div class="news-title">Nouvelle version disponible</div>
+      <div class="news-content">La version 1.0.3 apporte des corrections de bugs et des améliorations de performances.</div>
+    </div>
+    <div class="news-item">
+      <div class="news-title">Support étendu</div>
+      <div class="news-content">Mxlw Browser est maintenant disponible sur toutes les plateformes principales.</div>
+    </div>
+    <div class="news-item">
+      <div class="news-title">Nouveaux thèmes</div>
+      <div class="news-content">Découvrez nos nouveaux thèmes dans les paramètres d'apparence.</div>
+    </div>
+  </div>
+  
+  <div class="dropdown">
+    <div class="dropdown-btn">≡</div>
+    <div class="dropdown-content">
+      <a href="https://github.com/Maxlware-Developement/Mlxw-browser/wiki">Aide</a>
+    </div>
+  </div>
+  
+  <script>
+    // Script pour gérer les téléchargements
+    document.querySelectorAll('.download-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const platform = this.querySelector('.platform-name').textContent;
+        window.location.href = "erreur.html"
+      });
+    });
+  </script>
+</body>
+</html>
