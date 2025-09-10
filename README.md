@@ -21,5 +21,5 @@ Inspiré par la philosophie open-source de Mozilla Firefox.
 
 ## Auteurs
 
-Développé par Maxlware
+Développé par Maxlware | 
 Contact : contact@maxlware.fr
