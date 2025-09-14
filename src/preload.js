@@ -7,5 +7,6 @@ contextBridge.exposeInMainWorld('electronAPI', {
   closeApp: () => ipcRenderer.send('close-app'),
   minimizeApp: () => ipcRenderer.send('minimize-app'),
   maximizeApp: () => ipcRenderer.send('maximize-app'),
-  onTabsUpdated: (callback) => ipcRenderer.on('tabs-updated', (_, tabs) => callback(tabs))
+  onTabsUpdated: (callback) => ipcRenderer.on('tabs-updated', (_, tabs) => callback(tabs)),
+  continueToBlocked: () => ipcRenderer.send('continue-to-blocked')
 });
