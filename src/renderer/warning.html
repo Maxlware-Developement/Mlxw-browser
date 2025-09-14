@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="assets/warning.png">
+  <title>Connexion non sécurisée - Mxlw Browser</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #000;
+      color: #fff;
+      flex-direction: column;
+      padding: 20px;
+      text-align: center;
+    }
+    
+    .warning-icon {
+      font-size: 5rem;
+      margin-bottom: 30px;
+      color: #ffcc00;
+    }
+    
+    h1 {
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: #ffcc00;
+      font-size: 2.2rem;
+    }
+    
+    .description {
+      max-width: 600px;
+      margin-bottom: 30px;
+      line-height: 1.6;
+      color: #ccc;
+    }
+    
+    .details {
+      background-color: #1a1a1a;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+      text-align: left;
+      max-width: 600px;
+      width: 100%;
+      border-left: 4px solid #ffcc00;
+    }
+    
+    .details summary {
+      font-weight: 600;
+      cursor: pointer;
+      color: #ffcc00;
+      margin-bottom: 10px;
+    }
+    
+    .error-code {
+      color: #ff6666;
+      font-family: monospace;
+      background-color: #2a2a2a;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    
+    .button {
+      background-color: #333;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 12px 24px;
+      font-weight: 600;
+      cursor: pointer;
+      margin: 10px;
+      transition: background-color 0.2s;
+    }
+    
+    .button:hover {
+      background-color: #444;
+    }
+    
+    .button-primary {
+      background-color: #ffcc00;
+      color: #000;
+    }
+    
+    .button-primary:hover {
+      background-color: #ffd633;
+    }
+  </style>
+</head>
+<body>
+  <div class="warning-icon">⚠️</div>
+  <h1>Votre connexion n'est pas sécurisée</h1>
+  
+  <p class="description">
+    Les personnes susceptibles d'intercepter vos données pourraient voler des informations 
+    comme vos mots de passe, numéros de carte bancaire ou autres informations personnelles.
+  </p>
+  <p>URL bloquée : <span id="blocked-url"></span></p>
+  
+  <div class="details">
+    <details>
+      <summary>Détails techniques</summary>
+      <p>Le certificat de sécurité de ce site est invalide ou n'est pas valide pour cette URL.</p>
+      <p>Code d'erreur: <span class="error-code">ERR_CERT_INVALID</span></p>
+      <p>Il est possible que quelqu'un intercepte votre connexion pour voler vos informations.</p>
+    </details>
+  </div>
+  
+  <div>
+    <button class="button button-primary" onclick="window.history.back()">Retour à la sécurité</button>
+    <button class="button" id="proceed-button">Poursuivre malgré le risque</button>
+  </div>
+  
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const reason = params.get('reason') || "Raison inconnue";
+  const blockedUrl = params.get('url') || "URL inconnue";
+
+  document.querySelector('.description').textContent = reason;
+  document.getElementById('blocked-url').textContent = blockedUrl;
+
+  document.getElementById('proceed-button').addEventListener('click', () => {
+    if (window.electronAPI) {
+      window.electronAPI.continueToBlocked();
+    }
+  });
+</script>
+</body>
+</html>
