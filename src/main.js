@@ -1,10 +1,43 @@
 const { app, BrowserWindow, BrowserView, ipcMain } = require('electron');
 const path = require('path');
 const fs = require('fs');
-
 const { setupContextMenu, setupCreditsShortcut } = require('./context-menu');
 
+const { setupAdblock } = require('./adblocker');
+
+// 1.0.4
+const sudo = require('sudo-prompt');
+const os = require('os');
+
+if (process.platform === 'win32' && !process.argv.includes('--elevated')) {
+  const execPath = process.execPath;
+  const options = {
+    name: 'Mxlw Browser',
+  };
+
+  const command = `"${execPath}" ${process.argv.slice(1).join(' ')} --elevated`;
+
+  sudo.exec(command, options, (error) => {
+    if (error) {
+      console.error('Échec de l’élévation des privilèges :', error);
+      app.quit();
+    } else {
+      app.quit();
+    }
+  });
+  return;
+}
+
 require('./rpc.js');
+
+// 1.0.4
+const blockedTLDs = [
+  '.xyz', '.top', '.click', '.zip', '.review', '.cam', '.tk',
+  '.ml', '.ga', '.cf', '.gq', '.men', '.party', '.stream',
+  '.work', '.buzz', '.loan', '.download', '.win', '.pw'
+];
+let blockedUrlTemp = null;
+let blockedReasonTemp = null;
 
 let mainWindow;
 let tabs = [];
@@ -40,42 +73,55 @@ function createWindow() {
   });
 
   mainWindow.loadFile('renderer/index.html');
-
   setupCreditsShortcut(mainWindow);
 
   createTab(settings.homePage);
 
-  mainWindow.on('resize', () => {
-    resizeActiveTab();
-  });
-
-  mainWindow.on('closed', () => {
-    mainWindow = null;
-  });
+  mainWindow.on('resize', () => resizeActiveTab());
+  mainWindow.on('closed', () => mainWindow = null);
 }
 
 function createTab(url) {
   const view = new BrowserView({
     webPreferences: {
       nodeIntegration: false,
-    },
+      contextIsolation: true
+    }
   });
+  setupAdblock(view);
 
-  view.webContents.loadURL(url);
-  setupContextMenu(mainWindow, view);
-  view.webContents.setWindowOpenHandler(() => ({ action: 'deny' }));
+  view.webContents.on('will-navigate', (event, newUrl) => {
+    const parsed = new URL(newUrl);
+    const hostname = parsed.hostname;
+
+    if (parsed.protocol === 'http:') {
+      event.preventDefault();
+      blockedUrlTemp = newUrl;
+      blockedReasonTemp = 'Connexion non sécurisée (HTTP)';
+      loadWarningTab();
+      return;
+    }
+
+    if (blockedTLDs.some(tld => hostname.endsWith(tld))) {
+      event.preventDefault();
+      blockedUrlTemp = newUrl;
+      blockedReasonTemp = `Extension de domaine suspecte (${hostname})`;
+      loadWarningTab();
+      return;
+    }
+  });
 
   mainWindow.setBrowserView(view);
   tabs.push(view);
   resizeActiveTab();
+  view.webContents.loadURL(url);
 
-  view.webContents.on('page-title-updated', () => {
-    sendTabsToRenderer();
-  });
+  setupContextMenu(mainWindow, view);
 
-  view.webContents.on('did-finish-load', () => {
-    sendTabsToRenderer();
-  });
+  view.webContents.setWindowOpenHandler(() => ({ action: 'deny' }));
+
+  view.webContents.on('page-title-updated', () => sendTabsToRenderer());
+  view.webContents.on('did-finish-load', () => sendTabsToRenderer());
 }
 
 function resizeActiveTab() {
@@ -101,6 +147,12 @@ function sendTabsToRenderer() {
   mainWindow.webContents.send('tabs-updated', tabData);
 }
 
+function loadWarningTab() {
+  const warningUrl = `file://${path.join(__dirname, 'renderer', 'warning.html')}?reason=${encodeURIComponent(blockedReasonTemp)}&url=${encodeURIComponent(blockedUrlTemp)}`;
+  createTab(warningUrl);
+}
+
+// 1.0.4
 ipcMain.on('navigate', (_, input) => {
   const view = tabs[tabs.length - 1];
   if (!input) return;
@@ -108,6 +160,23 @@ ipcMain.on('navigate', (_, input) => {
   const url = isValidUrl(input)
     ? (input.startsWith('http') ? input : `https://${input}`)
     : `${settings.searchEngine}${encodeURIComponent(input)}`;
+
+  const parsed = new URL(url);
+  const hostname = parsed.hostname;
+
+  if (parsed.protocol === 'http:') {
+    blockedUrlTemp = url;
+    blockedReasonTemp = 'Connexion non sécurisée (HTTP)';
+    loadWarningTab();
+    return;
+  }
+
+  if (blockedTLDs.some(tld => hostname.endsWith(tld))) {
+    blockedUrlTemp = url;
+    blockedReasonTemp = `Extension de domaine suspecte (${hostname})`;
+    loadWarningTab();
+    return;
+  }
 
   view.webContents.loadURL(url);
 });
@@ -131,6 +200,14 @@ ipcMain.on('maximize-app', () => {
   else mainWindow.maximize();
 });
 
+ipcMain.on('continue-to-blocked', () => {
+  if (blockedUrlTemp) {
+    createTab(blockedUrlTemp);
+    blockedUrlTemp = null;
+    blockedReasonTemp = null;
+  }
+});
+
 function isValidUrl(str) {
   return str.includes('.') || str.startsWith('http');
 }
@@ -143,4 +220,12 @@ app.on('window-all-closed', () => {
 
 app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) createWindow();
+});
+
+app.on('certificate-error', (event, webContents, url, error, cert, callback) => {
+  event.preventDefault();
+  blockedUrlTemp = url;
+  blockedReasonTemp = `Certificat SSL invalide : ${error}`;
+  loadWarningTab();
+  callback(false);
 });
