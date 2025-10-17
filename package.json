@@ -40,8 +40,8 @@
     "node": ">=18.0.0"
   },
   "devDependencies": {
-    "electron": "^29.3.0",
-    "electron-builder": "^26.0.12"
+    "electron": "^30.0.0",
+    "electron-builder": "^26.2.0"
   },
   "dependencies": {
     "discord-rpc": "^4.0.1"
@@ -50,22 +50,27 @@
     "appId": "com.maxlware.browser",
     "productName": "Mxlw Browser",
     "copyright": "© 2025 Maxlware",
+    "asar": true,
     "files": [
       "main.js",
       "preload.js",
       "rpc.js",
       "context-menu.js",
+      "adblocker.js",
       "settings.json",
       "renderer/**/*",
-      "assets/**/*"
+      "assets/**/*",
+      "!**/node_modules/*/{CHANGELOG.md,README.md,README,readme.md,test,__tests__,tests}",
+      "!**/*.map"
     ],
-    "extraResources": [],
     "directories": {
       "output": "dist"
     },
+    "extraResources": [],
     "win": {
       "target": "nsis",
-      "icon": "assets/icon.ico"
+      "icon": "assets/icon.ico",
+      "requestedExecutionLevel": "requireAdministrator"
     },
     "mac": {
       "target": "dmg",
@@ -78,7 +83,9 @@
     "nsis": {
       "oneClick": false,
       "perMachine": false,
-      "allowToChangeInstallationDirectory": true
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
     }
   }
 }
