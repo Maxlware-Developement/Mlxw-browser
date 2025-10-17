@@ -8,5 +8,6 @@ contextBridge.exposeInMainWorld('electronAPI', {
   minimizeApp: () => ipcRenderer.send('minimize-app'),
   maximizeApp: () => ipcRenderer.send('maximize-app'),
   onTabsUpdated: (callback) => ipcRenderer.on('tabs-updated', (_, tabs) => callback(tabs)),
-  continueToBlocked: () => ipcRenderer.send('continue-to-blocked')
+  onSiteVerified: (callback) => ipcRenderer.on('site-verified', (_, hostname) => callback(hostname)),
+  onSiteUnverified: (callback) => ipcRenderer.on('site-unverified', () => callback())
 });
