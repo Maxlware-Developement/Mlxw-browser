@@ -34,3 +34,15 @@ const { ipcRenderer } = require('electron');
 ipcRenderer.on('open-source-view', () => {
   window.location.href = 'view-source.html';
 });
+
+const badge = document.getElementById('verified-badge');
+
+window.electronAPI.onSiteVerified((hostname) => {
+  badge.classList.remove('hidden');
+  badge.querySelector('.verified-info').textContent =
+    `${hostname} est un site vérifié par Mxlw Browser.`;
+});
+
+window.electronAPI.onSiteUnverified(() => {
+  badge.classList.add('hidden');
+});
