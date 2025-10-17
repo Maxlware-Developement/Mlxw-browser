@@ -1,38 +1,46 @@
-<img width="1280" height="720" alt="Copie de Maxlware" src="https://github.com/user-attachments/assets/4d18fbf9-e091-4de0-a0cd-cc2a3f9f7105" />
-
 # 🌐 Mxlw Browser
 
-**Mxlw Browser** est un navigateur web minimaliste et extensible développé en **Electron** et **Node.js**, avec une interface moderne inspirée des styles **aero** et **bento**.
+![Mxlw Browser](https://github.com/user-attachments/assets/4d18fbf9-e091-4de0-a0cd-cc2a3f9f7105)
 
-## Fonctionnalités
+**Mxlw Browser** est un navigateur web **minimaliste**, **rapide** et **extensible**, construit avec **Electron** et **Node.js**.  
+Son interface s’inspire des designs **minimaliste** et **intuitive**, offrant une expérience claire et moderne.
 
-- Système d'onglets personnalisés avec titre et favicon
-- Barre de recherche intelligente redirigeant vers Google
-- Page d'accueil personnalisée
-- Thème clair / sombre avec bouton de bascule
-- Panneau de paramètres (style Aero) avec sauvegarde JSON
-- Redimensionnement fluide des iframes
-- Empêche l'ouverture d'une nouvelle fenêtre sur les liens
+---
 
-## Prérequis
-### Minimal
-Processeur : Intel Core i5 1.60GHz
-Mémoire (RAM) : 4,0 Go
-Stockage conseillé : 500 Mo
-Stockage du logiciel : 250 Mo
+## ✨ Fonctionnalités
 
-### Conseillé
-Processeur : Intel Core i5 1.60GHz
-Mémoire (RAM) : 8,0 Go
-Stockage conseillé : 500 Mo
-Stockage du logiciel : 250 Mo
+- **Onglets personnalisés** avec titre et favicon  
+- **Barre de recherche intelligente** redirigeant vers Google  
+- **Page d'accueil personnalisable**  
+- **Mode clair / sombre** avec bascule rapide  
+- **Panneau de paramètres** avec sauvegarde JSON  
+- **Redimensionnement fluide** des iframes  
+- **Sécurité améliorée** : empêche l’ouverture de nouvelles fenêtres non désirées  
 
-## Licence
+---
 
-Ce projet est sous licence Mozilla Public License 2.0 (MPL-2.0).
-Inspiré par la philosophie open-source de Mozilla Firefox.
+## ⚙️ Prérequis
 
-## Auteurs
+### Minimum
+- Processeur : Intel Core i5 1.6 GHz  
+- Mémoire : 4 Go RAM  
+- Stockage : 250 Mo (installation) / 500 Mo conseillé  
 
-Développé par Maxlware | 
-Contact : contact@maxlware.fr
+### Recommandé
+- Processeur : Intel Core i5 1.6 GHz ou supérieur  
+- Mémoire : 8 Go RAM  
+- Stockage : 250 Mo (installation) / 500 Mo conseillé  
+
+---
+
+## 📄 Licence
+
+Ce projet est sous **Mozilla Public License 2.0 (MPL-2.0)**.  
+Inspiré par la philosophie **open-source** de Mozilla Firefox.
+
+---
+
+## 👤 Auteurs
+
+Développé par **Maxlware**  
+📧 Contact : [contact@maxlware.fr](mailto:contact@maxlware.fr)
