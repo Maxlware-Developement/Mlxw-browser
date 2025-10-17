@@ -1,6 +1,6 @@
 {
   "name": "mxlw-browser",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "Navigateur web minimaliste et extensible développé avec Electron et Node.js",
   "author": {
     "name": "Maxlware",
