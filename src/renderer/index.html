@@ -17,7 +17,15 @@
   <div class="toolbar">
     <div id="tabs" class="tabs"></div>
     <button id="new-tab">＋</button>
-    <input type="text" id="url" placeholder="Entrez une URL..." />
+    <div class="url-container">
+      <input type="text" id="url" placeholder="Entrez une URL..." />
+        <div id="verified-badge" class="hidden">
+  <span class="shield">🛡️</span>
+  <span>Vérifié</span>
+  <div class="verified-info">
+    Ce site a été validé par Mxlw Browser pour sa sécurité et sa fiabilité.
+  </div>
+</div>
     <button id="go">Go</button>
   </div>
 
