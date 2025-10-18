@@ -1,5 +1,5 @@
 {
-  "homePage": "file:///C:/Users/slemaire/Downloads/Max/Mxlw%20Browser/renderer/home.html",
-  "searchEngine": "https://www.google.com/search?q="
+  "homePage": "renderer/home.html",
+  "searchEngine": "https://duckduckgo.com/?t=ffab&ai=web&q="
 }
 
