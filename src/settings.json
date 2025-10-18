@@ -1,7 +1,7 @@
 {
   "homePage": "renderer/home.html",
   "searchEngine": "https://duckduckgo.com/?t=ffab&ai=web&q=",
-  "RpcEnabled": false,
+  "RpcEnabled": true,
   "apis": {
     "VerifiedSites": "https://browser.maxlware.fr/static/verified_sites.json"
   },
