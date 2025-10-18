@@ -13,7 +13,8 @@ rpc.on('ready', () => {
     startTimestamp,
     instance: false
   });
-  console.log('Rich Presence actif avec Mxlw Browser');
+  console.log('[RPC] En ligne...');
 });
 
 rpc.login({ clientId }).catch(console.error);
+
