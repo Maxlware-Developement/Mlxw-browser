@@ -68,7 +68,7 @@ function createWindow() {
   mainWindow.loadFile('renderer/index.html');
   setupCreditsShortcut(mainWindow);
   
-  createTab(`${__dirname}/${settings.homePage}`);
+  createTab(`file://${__dirname}/${settings.homePage}`);
 
   mainWindow.on('resize', () => resizeActiveTab());
   mainWindow.on('closed', () => mainWindow = null);
