@@ -13,7 +13,7 @@ rpc.on('ready', () => {
     startTimestamp,
     instance: false
   });
-  console.log('[RPC] En ligne...');
+  console.log('[RPC] Online...');
 });
 
 rpc.login({ clientId }).catch(console.error);

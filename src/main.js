@@ -2,56 +2,59 @@ const { app, BrowserWindow, BrowserView, ipcMain, globalShortcut } = require('el
 const path = require('path');
 const fs = require('fs');
 const sudo = require('sudo-prompt');
-const { setupContextMenu, setupCreditsShortcut } = require('./context-menu');
-const { setupAdblock } = require('./adblocker');
+const { setupContextMenu, setupCreditsShortcut } = require('./utils/context-menu');
+const { setupAdblock } = require('./utils/adblocker');
+const { loadConfig } = require('./utils/config_loader');
+const { config } = require('process');
+IDONTCAREABOUTTHEFOLLOWINGCODE = true;
+if (IDONTCAREABOUTTHEFOLLOWINGCODE) {}
+else{
+  if (process.platform === 'win32' && !process.argv.includes('--elevated')) {
+    const execPath = process.execPath;
+    const options = { name: 'Mxlw Browser' };
+    const command = `"${execPath}" ${process.argv.slice(1).join(' ')} --elevated`;
 
-if (process.platform === 'win32' && !process.argv.includes('--elevated')) {
-  const execPath = process.execPath;
-  const options = { name: 'Mxlw Browser' };
-  const command = `"${execPath}" ${process.argv.slice(1).join(' ')} --elevated`;
-
-  sudo.exec(command, options, (error) => {
-    if (error) console.error('Échec élévation :', error);
-    app.quit();
-  });
-  return;
+    sudo.exec(command, options, (error) => {
+      if (error) console.error('Échec élévation :', error);
+      app.quit();
+    });
+    return;
+  }
 }
 
-require('./rpc.js');
-
-const verifiedSites = [
-  'maxlware.fr',
-  'github.com',
-  'developer.mozilla.org',
-  'electronjs.org'
-];
-
-const blockedTLDs = [
-  '.xyz', '.top', '.click', '.zip', '.review', '.cam', '.tk',
-  '.ml', '.ga', '.cf', '.gq', '.men', '.party', '.stream',
-  '.work', '.buzz', '.loan', '.download', '.win', '.pw'
-];
 
 let mainWindow;
 let tabs = [];
 let blockedUrlTemp = null;
 let blockedReasonTemp = null;
 
-let settings = {
-  homePage: `file://${path.join(__dirname, 'renderer', 'home.html')}`,
-  searchEngine: 'https://www.google.com/search?q='
-};
 
-const settingsPath = path.join(__dirname, 'settings.json');
-if (fs.existsSync(settingsPath)) {
-  try {
-    const file = fs.readFileSync(settingsPath, 'utf-8');
-    const userSettings = JSON.parse(file);
-    settings = { ...settings, ...userSettings };
-  } catch (e) {
-    console.error('Erreur settings.json:', e);
-  }
+// ============
+const settings = loadConfig();
+
+// Active RPC si activé dans les paramètres
+if (settings.RpcEnabled) {
+  require('./rpc');
 }
+
+
+setImmediate(async () => {
+  try {
+    const response = await fetch(settings.apis.VerifiedSites);
+    const data = await response.json();
+    verifiedSites = data
+  } catch (error) {
+    console.error('[Config/Net/VerifiedSites]: ', error);
+  }
+});
+
+// disabled for now
+//const blockedTLDs = [
+//  '.xyz', '.top', '.click', '.zip', '.review', '.cam', '.tk',
+//  '.ml', '.ga', '.cf', '.gq', '.men', '.party', '.stream',
+//  '.work', '.buzz', '.loan', '.download', '.win', '.pw'
+//];
+
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -121,12 +124,12 @@ view.webContents.on('did-finish-load', () => {
       blockedReasonTemp = 'Connexion non sécurisée (HTTP)';
       loadWarningTab();
     }
-    if (blockedTLDs.some(tld => hostname.endsWith(tld))) {
-      event.preventDefault();
-      blockedUrlTemp = newUrl;
-      blockedReasonTemp = `Extension de domaine suspecte (${hostname})`;
-      loadWarningTab();
-    }
+    //if (blockedTLDs.some(tld => hostname.endsWith(tld))) {
+    //  event.preventDefault();
+    //  blockedUrlTemp = newUrl;
+    //  blockedReasonTemp = `Extension de domaine suspecte (${hostname})`;
+    //  loadWarningTab();
+    //}
   });
 
   setupContextMenu(mainWindow, view);

@@ -1,5 +1,11 @@
 {
   "homePage": "renderer/home.html",
-  "searchEngine": "https://duckduckgo.com/?t=ffab&ai=web&q="
+  "searchEngine": "https://duckduckgo.com/?t=ffab&ai=web&q=",
+  "RpcEnabled": true,
+  "apis": {
+    "VerifiedSites": "https://browser.maxlware.fr/static/verified_sites.json"
+  },
+  "adblock_sources": [
+    "https://browser.maxlware.fr/static/adblock.txt"
+  ]
 }
-
