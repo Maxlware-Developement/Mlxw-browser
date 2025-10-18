@@ -2,351 +2,639 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Télécharger Mxlw Browser</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mxlw - Navigateur Minimaliste</title>
+  <link rel="icon" href="icon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <meta name="description" content="Mxlw Browser est un navigateur web minimaliste, rapide et respectueux de votre vie privée. Conçu pour ceux qui valorisent la simplicité et l'efficacité." />
+
+    <meta property="og:title" content="Maxlware Browser">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://browser.maxlware.fr/">
+    <meta property="og:description" content="Mxlw Browser est un navigateur web minimaliste, rapide et respectueux de votre vie privée. Conçu pour ceux qui valorisent la simplicité et l'efficacité.">
+    <meta property="og:site_name" content="Maxlware Browser">
+    <meta property="og:locale" content="fr_FR">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Maxlware Browser">
+    <meta name="twitter:description" content="Mxlw Browser est un navigateur web minimaliste, rapide et respectueux de votre vie privée. Conçu pour ceux qui valorisent la simplicité et l'efficacité.">
+    
+    <link rel="canonical" href="https://browser.maxlware.fr/">
+
   <style>
-    body {
+    :root {
+      --bg-primary: #121212;
+      --bg-secondary: #1e1e1e;
+      --bg-tertiary: #2d2d2d;
+      --text-primary: #e0e0e0;
+      --text-secondary: #a0a0a0;
+      --accent: #3a86ff;
+      --accent-hover: #2a76ef;
+      --border: #404040;
+      --success: #4caf50;
+    }
+    
+    * {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      background: linear-gradient(135deg, #ffffff 0%, #0091ff 100%);
-      flex-direction: column;
-      position: relative;
-      overflow-x: hidden;
+      padding: 0;
+      box-sizing: border-box;
     }
     
-    body::before {
-      content: '';
-      position: absolute;
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    header {
+      background-color: var(--bg-secondary);
+      padding: 20px 0;
+      position: sticky;
       top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      backdrop-filter: blur(10px);
-      z-index: -1;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     }
     
-    .download-container {
-      background: rgba(255, 255, 255, 0.7);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border-radius: 20px;
-      padding: 40px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-      border: 1px solid rgba(255, 255, 255, 0.6);
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .logo-icon {
+      font-size: 24px;
+      color: var(--accent);
+    }
+    
+    .logo-text {
+      font-size: 24px;
+      font-weight: 600;
+    }
+    
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 30px;
+    }
+    
+    nav a {
+      color: var(--text-primary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    
+    nav a:hover {
+      color: var(--accent);
+    }
+    
+    .cta-button {
+      background-color: var(--accent);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    
+    .cta-button:hover {
+      background-color: var(--accent-hover);
+    }
+    
+    .hero {
+      padding: 100px 0;
       text-align: center;
-      max-width: 800px;
-      width: 90%;
-      margin: 20px;
+      background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-tertiary) 100%);
     }
     
-    h1 {
+    .hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
       font-weight: 700;
-      margin-bottom: 10px;
-      color: #2c3e50;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.1);
-      font-size: 2.5rem;
     }
     
-    .subtitle {
+    .hero p {
       font-size: 1.2rem;
-      color: #34495e;
-      margin-bottom: 30px;
+      max-width: 700px;
+      margin: 0 auto 40px;
+      color: var(--text-secondary);
+    }
+    
+    .hero-buttons {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin-top: 30px;
+    }
+    
+    .primary-button {
+      background-color: var(--accent);
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      font-size: 1rem;
+    }
+    
+    .primary-button:hover {
+      background-color: var(--accent-hover);
+    }
+    
+    .secondary-button {
+      background-color: transparent;
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+      padding: 12px 30px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 1rem;
+    }
+    
+    .secondary-button:hover {
+      background-color: var(--bg-tertiary);
     }
     
     .features {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-      margin: 30px 0;
+      padding: 100px 0;
+      background-color: var(--bg-secondary);
     }
     
-    .feature {
-      background: rgba(255, 255, 255, 0.6);
-      backdrop-filter: blur(5px);
-      border-radius: 15px;
-      padding: 20px;
-      width: 200px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.5);
-      transition: transform 0.3s ease;
+    .section-title {
+      text-align: center;
+      margin-bottom: 60px;
     }
     
-    .feature:hover {
-      transform: translateY(-5px);
-    }
-    
-    .feature-icon {
+    .section-title h2 {
       font-size: 2.5rem;
       margin-bottom: 15px;
     }
     
-    .feature-title {
-      font-weight: 600;
-      margin-bottom: 10px;
-      color: #2c3e50;
+    .section-title p {
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+    
+    .feature-card {
+      background-color: var(--bg-tertiary);
+      border-radius: 12px;
+      padding: 30px;
+      transition: transform 0.3s;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .feature-icon {
+      font-size: 40px;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+    
+    .feature-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+    }
+    
+    .feature-card p {
+      color: var(--text-secondary);
+    }
+    
+    .download {
+      padding: 100px 0;
+      text-align: center;
     }
     
     .download-options {
       display: flex;
-      flex-wrap: wrap;
       justify-content: center;
-      gap: 20px;
-      margin: 40px 0;
+      gap: 30px;
+      margin-top: 50px;
+      flex-wrap: wrap;
     }
     
-    .download-btn {
-      background: rgba(255, 255, 255, 0.7);
-      backdrop-filter: blur(5px);
-      border: 1px solid rgba(255, 255, 255, 0.6);
+    .download-card {
+      background-color: var(--bg-secondary);
       border-radius: 12px;
-      padding: 15px 25px;
-      width: 180px;
-      text-align: center;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      cursor: pointer;
-      transition: all 0.3s ease;
+      padding: 40px 30px;
+      width: 280px;
+      transition: transform 0.3s;
     }
     
-    .download-btn:hover {
-      background: rgba(255, 255, 255, 0.9);
-      transform: translateY(-3px);
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    .download-card:hover {
+      transform: translateY(-5px);
     }
     
-    .platform-name {
-      font-weight: 600;
+    .os-icon {
+      font-size: 50px;
+      margin-bottom: 20px;
+    }
+    
+    .download-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+    }
+    
+    .download-card p {
+      color: var(--text-secondary);
+      margin-bottom: 25px;
+    }
+    
+    footer {
+      background-color: var(--bg-tertiary);
+      padding: 60px 0 30px;
+    }
+    
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+    
+    .footer-column h4 {
       font-size: 1.2rem;
-      margin-bottom: 8px;
-      color: #2c3e50;
+      margin-bottom: 20px;
     }
     
-    .platform-icon {
-      font-size: 2rem;
+    .footer-column ul {
+      list-style: none;
+    }
+    
+    .footer-column ul li {
       margin-bottom: 10px;
     }
     
-    .version-info {
-      font-size: 0.8em;
-      color: #7f8c8d;
-      background: rgba(255, 255, 255, 0.5);
-      padding: 5px 10px;
+    .footer-column a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    
+    .footer-column a:hover {
+      color: var(--accent);
+    }
+    
+    .copyright {
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid var(--border);
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+    
+    .download-btn {
+      position: relative;
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 12px 30px;
       border-radius: 8px;
-      backdrop-filter: blur(5px);
-      -webkit-backdrop-filter: blur(5px);
-      margin-top: 30px;
-    }
-    
-    .news-panel {
-      position: fixed;
-      right: 20px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 300px;
-      background: rgba(255, 255, 255, 0.7);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border-radius: 12px;
-      padding: 15px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.6);
-      max-height: 60vh;
-      overflow-y: auto;
-    }
-    
-    .news-panel h2 {
-      margin-top: 0;
-      font-size: 1.2em;
-      color: #2c3e50;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-      padding-bottom: 8px;
-    }
-    
-    .news-item {
-      padding: 10px 0;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    }
-    
-    .news-item:last-child {
-      border-bottom: none;
-    }
-    
-    .news-title {
+      cursor: pointer;
       font-weight: 600;
-      margin-bottom: 5px;
-      color: #3498db;
-    }
-    
-    .news-content {
-      font-size: 0.9em;
-      color: #34495e;
-    }
-
-    .dropdown {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 100;
-    }
-    
-    .dropdown-btn {
-      background: rgba(255, 255, 255, 0.7);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.6);
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      cursor: pointer;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transition: all 0.3s ease;
-    }
-    
-    .dropdown-btn:hover {
-      background: rgba(255, 255, 255, 0.9);
-      transform: translateY(-2px);
-    }
-    
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      bottom: 60px;
-      right: 0;
-      background: rgba(255, 255, 255, 0.8);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      min-width: 160px;
-      border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-      border: 1px solid rgba(255, 255, 255, 0.6);
       overflow: hidden;
-      z-index: 1;
+      min-width: 160px;
+      transition: background-color 0.3s;
     }
     
-    .dropdown-content a {
-      color: #2c3e50;
-      padding: 12px 16px;
-      text-decoration: none;
-      display: block;
-      transition: background 0.2s ease;
+    .download-btn:hover {
+      background-color: var(--accent-hover);
     }
     
-    .dropdown-content a:hover {
-      background: rgba(52, 152, 219, 0.1);
+    .download-btn:disabled {
+      background-color: #666;
+      cursor: not-allowed;
     }
     
-    .dropdown:hover .dropdown-content {
+    .btn-text {
       display: block;
     }
     
-    .back-btn {
+    .progress-bar {
+      width: 0%;
+      height: 3px;
+      background: rgba(255,255,255,0.8);
       position: absolute;
-      top: 20px;
-      left: 20px;
-      background: rgba(255, 255, 255, 0.7);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.6);
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      cursor: pointer;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transition: all 0.3s ease;
-      text-decoration: none;
-      color: #2c3e50;
-      font-size: 1.2rem;
+      bottom: 0;
+      left: 0;
+      transition: width 1.5s ease-in-out;
     }
     
-    .back-btn:hover {
-      background: rgba(255, 255, 255, 0.9);
-      transform: translateY(-2px);
+    .download-complete {
+      background-color: var(--success);
+    }
+    
+    @media (max-width: 768px) {
+      .header-content {
+        flex-direction: column;
+        gap: 20px;
+      }
+      
+      nav ul {
+        gap: 15px;
+      }
+      
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      
+      .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .hero-buttons button {
+        width: 100%;
+        max-width: 300px;
+      }
+      
+      .download-options {
+        flex-direction: column;
+        align-items: center;
+      }
     }
   </style>
 </head>
 <body>
-  <a href="https://maxlware.fr" class="back-btn">←</a>
-  
-  <div class="download-container">
-    <h1>Télécharger Mxlw Browser</h1>
-    <p class="subtitle">Découvrez une nouvelle expérience de navigation avec notre navigateur rapide et sécurisé</p>
-    
-    <div class="features">
-      <div class="feature">
-        <div class="feature-icon">⚡</div>
-        <div class="feature-title">Rapidité</div>
-        <p>Chargement ultra-rapide des pages</p>
-      </div>
-      <div class="feature">
-        <div class="feature-icon">🔒</div>
-        <div class="feature-title">Sécurité</div>
-        <p>Protection avancée contre les menaces</p>
-      </div>
-      <div class="feature">
-        <div class="feature-icon">🎨</div>
-        <div class="feature-title">Élégance</div>
-        <p>Interface moderne et épurée</p>
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">
+          <div class="logo-icon"></div>
+          <div class="logo-text">Mxlw Browser</div>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="#features">Fonctionnalités</a></li>
+            <li><a href="#download">Télécharger</a></li>
+            <li><a href="#about">À propos</a></li>
+            <li><a href="#support">Support</a></li>
+          </ul>
+        </nav>
+        <button class="cta-button" id="headerDownloadBtn">
+          <span class="btn-text">Télécharger</span>
+          <div class="progress-bar" style="display: none;"></div>
+        </button>
       </div>
     </div>
-    
-    <div class="download-options">
-      <div class="download-btn">
-        <div class="platform-icon">💻</div>
-        <div class="platform-name">Windows</div>
-        <p>64-bit • Installateur</p>
-      </div>
-      <div class="download-btn">
-        <div class="platform-icon">🍎</div>
-        <div class="platform-name">macOS</div>
-        <p>Apple Silicon • Intel</p>
-      </div>
-      <div class="download-btn">
-        <div class="platform-icon">🐧</div>
-        <div class="platform-name">Linux</div>
-        <p>Debian • Ubuntu • Fedora</p>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <h1>Naviguez différemment</h1>
+      <p>Mxlw Browser est un navigateur web minimaliste, rapide et respectueux de votre vie privée. Conçu pour ceux qui valorisent la simplicité et l'efficacité.</p>
+      <div class="hero-buttons">
+        <button class="primary-button" id="heroDownloadBtn">
+          <span class="btn-text">Télécharger gratuitement</span>
+          <div class="progress-bar" style="display: none;"></div>
+        </button>
+        <button class="secondary-button">En savoir plus</button>
       </div>
     </div>
-    
-    <div class="version-info">Version 1.0.3 beta-preview (build 103bp)</div>
-  </div>
-  
-  <div class="news-panel">
-    <h2>Actualités</h2>
-    <div class="news-item">
-      <div class="news-title">Nouvelle version disponible</div>
-      <div class="news-content">La version 1.0.3 apporte des corrections de bugs et des améliorations de performances.</div>
+  </section>
+
+  <section class="features" id="features">
+    <div class="container">
+      <div class="section-title">
+        <h2>Fonctionnalités principales</h2>
+        <p>Découvrez ce qui rend Mxlw unique</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-bolt"></i>
+          </div>
+          <h3>Rapidité extrême</h3>
+          <p>Moteur de rendu optimisé pour une navigation fluide et des chargements de page ultra-rapides.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-user-shield"></i>
+          </div>
+          <h3>Vie privée</h3>
+          <p>Protection intégrée contre le pistage, les cookies tiers et les publicités intrusives.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-leaf"></i>
+          </div>
+          <h3>Minimaliste</h3>
+          <p>Interface épurée qui se concentre sur l'essentiel pour une expérience utilisateur optimale.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-palette"></i>
+          </div>
+          <h3>Personnalisation</h3>
+          <p>Thèmes sombre et clair, avec des options avancées pour adapter l'interface à vos préférences.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-sync-alt"></i>
+          </div>
+          <h3>Synchronisation</h3>
+          <p>Synchronisez vos marque-pages, historiques et paramètres sur tous vos appareils.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-battery-three-quarters"></i>
+          </div>
+          <h3>Économe en ressources</h3>
+          <p>Consommation mémoire optimisée pour prolonger l'autonomie de votre appareil.</p>
+        </div>
+      </div>
     </div>
-    <div class="news-item">
-      <div class="news-title">Support étendu</div>
-      <div class="news-content">Mxlw Browser est maintenant disponible sur toutes les plateformes principales.</div>
+  </section>
+
+  <section class="download" id="download">
+    <div class="container">
+      <div class="section-title">
+        <h2>Téléchargez Mxlw</h2>
+        <p>Disponible sur toutes les plateformes principales</p>
+      </div>
+      <div class="download-options">
+        <div class="download-card">
+          <div class="os-icon">
+            <i class="fab fa-windows"></i>
+          </div>
+          <h3>Windows</h3>
+          <p>Version 1.0.5 • 64-bit</p>
+          <button class="download-btn" data-file="Mxlw-Browser-Setup-1.0.5.exe">
+            <span class="btn-text">Télécharger</span>
+            <div class="progress-bar"></div>
+          </button>
+        </div>
+        <div class="download-card">
+          <div class="os-icon">
+            <i class="fab fa-apple"></i>
+          </div>
+          <h3>macOS</h3>
+          <p>Version 1.0.5 • Universal</p>
+          <button class="download-btn" data-file="Mxlw-Browser-macOS.dmg">
+            <span class="btn-text">Télécharger</span>
+            <div class="progress-bar"></div>
+          </button>
+        </div>
+        <div class="download-card">
+          <div class="os-icon">
+            <i class="fab fa-linux"></i>
+          </div>
+          <h3>Linux</h3>
+          <p>Version 1.0.5 • AppImage</p>
+          <button class="download-btn" data-file="Mxlw-Browser-Linux.AppImage">
+            <span class="btn-text">Télécharger</span>
+            <div class="progress-bar"></div>
+          </button>
+        </div>
+      </div>
     </div>
-    <div class="news-item">
-      <div class="news-title">Nouveaux thèmes</div>
-      <div class="news-content">Découvrez nos nouveaux thèmes dans les paramètres d'apparence.</div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <h4>Produit</h4>
+          <ul>
+            <li><a href="#download">Télécharger</a></li>
+            <li><a href="#features">Fonctionnalités</a></li>
+            <li><a href="https://github.com/Maxlware-Developement/Mlxw-browser/releases" target="_blank">Versions</a></li>
+            <li><a href="https://github.com/Maxlware-Developement/Mlxw-browser/releases/tag/1.0.0" target="_blank">Beta</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Entreprise</h4>
+          <ul>
+            <li><a href="https://maxlware.fr/" target="_blank">À propos</a></li>
+            <li><a href="https://jobs.maxlware.fr" target="_blank">Carrières</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="https://docs.maxlware.fr" target="_blank">Centre d'aide</a></li>
+            <li><a href="https://maxlware.fr/contact" target="_blank">Contact</a></li>
+            <li><a href="https://statuts.maxlware.fr" target="_blank">Statut</a></li>
+            <li><a href="https://discord.gg/QMnFud3nQH" target="_blank">Communauté</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Légal</h4>
+          <ul>
+            <li><a href="pdc.html">Confidentialité</a></li>
+            <li><a href="cgu.html">Conditions</a></li>
+            <li><a href="https://github.com/Maxlware-Developement/Mlxw-browser/blob/main/LICENSE" target="_blank">Licences</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>&copy; 2025 Mxlw Browser. Tous droits réservés.</p>
+      </div>
     </div>
-  </div>
-  
-  <div class="dropdown">
-    <div class="dropdown-btn">≡</div>
-    <div class="dropdown-content">
-      <a href="https://github.com/Maxlware-Developement/Mlxw-browser/wiki">Aide</a>
-    </div>
-  </div>
-  
+  </footer>
+
   <script>
-    // Script pour gérer les téléchargements
-    document.querySelectorAll('.download-btn').forEach(btn => {
-      btn.addEventListener('click', function() {
-        const platform = this.querySelector('.platform-name').textContent;
-        window.location.href = "erreur.html"
+    function setupDownloadButton(button) {
+      button.addEventListener('click', function() {
+        const btn = this;
+        const fileName = btn.getAttribute('data-file') || 'Mxlw-Browser-Setup-1.0.5.exe';
+        const btnText = btn.querySelector('.btn-text');
+        const progressBar = btn.querySelector('.progress-bar');
+        
+        btn.disabled = true;
+        btnText.textContent = 'Préparation...';
+        progressBar.style.display = 'block';
+        progressBar.style.width = '0%';
+        
+        setTimeout(() => {
+          progressBar.style.width = '30%';
+          btnText.textContent = 'Téléchargement...';
+        }, 500);
+        
+        setTimeout(() => {
+          progressBar.style.width = '70%';
+        }, 1000);
+        
+        setTimeout(() => {
+          progressBar.style.width = '100%';
+          btnText.textContent = 'Finalisation...';
+          
+          setTimeout(() => {
+            const link = document.createElement('a');
+            link.href = `https://github.com/Maxlware-Developement/Mlxw-browser/releases/download/1.0.5/${fileName}`;
+            link.download = fileName;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            btn.classList.add('download-complete');
+            btnText.textContent = 'Téléchargé !';
+            
+            setTimeout(() => {
+              btn.disabled = false;
+              btn.classList.remove('download-complete');
+              btnText.textContent = 'Télécharger';
+              progressBar.style.display = 'none';
+              progressBar.style.width = '0%';
+            }, 2000);
+          }, 500);
+        }, 1500);
+      });
+    }
+    
+    document.querySelectorAll('.download-btn').forEach(button => {
+      setupDownloadButton(button);
+    });
+    
+    document.getElementById('headerDownloadBtn').addEventListener('click', function() {
+      document.getElementById('download').scrollIntoView({ behavior: 'smooth' });
+    });
+    
+    document.getElementById('heroDownloadBtn').addEventListener('click', function() {
+      document.getElementById('download').scrollIntoView({ behavior: 'smooth' });
+    });
+    
+    document.querySelectorAll('nav a').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        if(targetId.startsWith('#')) {
+          const targetElement = document.querySelector(targetId);
+          if(targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop - 80,
+              behavior: 'smooth'
+            });
+          }
+        }
       });
     });
   </script>
