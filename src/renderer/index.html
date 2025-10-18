@@ -1,34 +1,35 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <title>Mxlw Browser</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <div class="titlebar" id="drag-region">
-    <div class="window-buttons">
-      <button id="minimize">🗕</button>
-      <button id="maximize">🗖</button>
-      <button id="close">✕</button>
+  <head>
+    <meta charset="UTF-8">
+    <title>Mxlw Browser</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="titlebar" id="drag-region">
+      <div class="window-buttons">
+        <button id="minimize">🗕</button>
+        <button id="maximize">🗖</button>
+        <button id="close">✕</button>
+      </div>
     </div>
-  </div>
 
-  <div class="toolbar">
-    <div id="tabs" class="tabs"></div>
-    <button id="new-tab">＋</button>
-    <div class="url-container">
-      <input type="text" id="url" placeholder="Entrez une URL..." />
+    <div class="toolbar">
+      <div id="tabs" class="tabs"></div>
+      <button id="new-tab">＋</button>
+      <div class="url-container">
+        <input type="text" id="url" placeholder="Entrez une URL..." />
         <div id="verified-badge" class="hidden">
-  <span class="shield">🛡️</span>
-  <span>Vérifié</span>
-  <div class="verified-info">
-    Ce site a été validé par Mxlw Browser pour sa sécurité et sa fiabilité.
-  </div>
-</div>
-    <button id="go">Go</button>
-  </div>
+          <span class="shield">🛡️</span>
+          <span>Vérifié</span>
+          <div class="verified-info">
+            Ce site a été validé par Mxlw Browser pour sa sécurité et sa fiabilité.
+          </div>
+        </div>
+        <button id="go">Go</button>
+      </div>
+    </div>
 
-  <script src="script.js"></script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>
