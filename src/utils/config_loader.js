@@ -11,7 +11,12 @@ let settings = {
   },
   "adblock_sources": [
     "https://browser.maxlware.fr/static/adblock.txt"
-  ]
+  ],
+  "HideProxy":{
+    "api":["proxy1.maxlware.fr","proxy2.eletrix.fr"],
+    "auto_enabled": true,
+    "token":""
+  }
 };
 
 
