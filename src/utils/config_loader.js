@@ -28,7 +28,7 @@ if (fs.existsSync(settingsPath)) {
     const userSettings = JSON.parse(file);
     settings = { ...settings, ...userSettings };
   } catch (e) {
-    console.error('Erreur settings.json:', e);
+    console.error('[JSON] Json error :', e);
   }
 }else {
     fs.writeFileSync(settingsPath, JSON.stringify(settings, null, 2));
