@@ -23,7 +23,7 @@ async function loadBlockedHosts() {
 
   blockedHosts = hosts;
   console.log(blockedHosts)
-  console.log('✅ Adblock hosts loaded:', blockedHosts.length);
+  console.log('[ADBLOCK] Adblock hosts loaded:', blockedHosts.length);
 }
 
 function setupAdblock(view) {
@@ -34,7 +34,7 @@ function setupAdblock(view) {
     const blocked = blockedHosts.some(domain => url.includes(domain));
 
     if (blocked) {
-      console.log('🛑 Pub bloquée :', url);
+      console.log('[ADBLOCK] Ad blocked :', url);
       return callback({ cancel: true });
     }
 
