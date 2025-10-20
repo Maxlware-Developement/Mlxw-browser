@@ -12,10 +12,11 @@ else{
   if (process.platform === 'win32' && !process.argv.includes('--elevated')) {
     const execPath = process.execPath;
     const options = { name: 'Mxlw Browser' };
+    console.log("[START] Admin perms...")
     const command = `"${execPath}" ${process.argv.slice(1).join(' ')} --elevated`;
 
     sudo.exec(command, options, (error) => {
-      if (error) console.error('Échec élévation :', error);
+      if (error) console.error('[START] Error for perms :', error);
       app.quit();
     });
     return;
@@ -30,9 +31,12 @@ let blockedReasonTemp = null;
 
 
 // ============
+console.log("[START] Loading configurations...")
 const settings = loadConfig();
+console.log("[START] Configuration loaded!")
 
 // Active RPC si activé dans les paramètres
+console.log("[RPC] Loading...")
 if (settings.RpcEnabled) {
   require('./rpc');
 }
@@ -57,6 +61,7 @@ setImmediate(async () => {
 
 
 function createWindow() {
+  console.log("[START] Starting application...")
   mainWindow = new BrowserWindow({
     width: 1280,
     height: 800,
@@ -67,11 +72,20 @@ function createWindow() {
       preload: path.join(__dirname, 'preload.js'),
     },
   });
+  console.log("[START] Application loaded.")
 
+  console.log("[START] Menu loading...")
   mainWindow.loadFile('renderer/index.html');
+  console.log("[START] Menu loaded!")
   setupCreditsShortcut(mainWindow);
   
   createTab(`file://${__dirname}/${settings.homePage}`);
+
+  // Outpout finished
+  console.log("--------------------")
+  console.log("  [START] Loaded!")
+  console.log("  Version 1.0.7")
+  console.log("---------------------")
 
   mainWindow.on('resize', () => resizeActiveTab());
   mainWindow.on('closed', () => mainWindow = null);
